@@ -29,21 +29,9 @@ zuul:
     authorization-server:
       path: /authserv/**
       url: http://localhost:8084
-    job-service:
-      path: /jobserv/**
-      url: http://localhost:8086
-    learn-service:
-      path: /learnserv/**
-      url: http://localhost:8087
     payment-service:
       path: /paymentserv/**
       url: http://localhost:8088
-    bank-service:
-      path: /bankserv/**
-      url: http://localhost:8089
-    messaging-service:
-      path: /messageserv/**
-      url: http://localhost:8083
     wallet-service:
       path: /walletserv/**
       url: http://localhost:9090
