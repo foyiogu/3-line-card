@@ -28,7 +28,7 @@ public class WalletService implements Serializable {
     private final App app;
 
 
-    @Value("${kula.walletBaseURL}")
+    @Value("${walletBaseURL}")
     private String walletBaseURL;
 
     @Value("${kula.walletUsername}")
