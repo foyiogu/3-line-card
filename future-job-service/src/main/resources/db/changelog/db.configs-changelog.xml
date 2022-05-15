@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet author="aliyura (generated)" id="1623169071247-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="configs"/>
+            </not>
+        </preConditions>
+        <createTable tableName="configs">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="configsPK"/>
+            </column>
+            <column name="created_at" type="datetime2"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="uid" type="varchar(255)"/>
+            <column name="value" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1623174230198-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists columnName="reference" tableName="configs"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="configs">
+            <column name="reference" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

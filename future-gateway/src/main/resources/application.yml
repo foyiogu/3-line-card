@@ -1,0 +1,107 @@
+spring:
+  profiles:
+    active: ${APP_ENV}
+  application:
+    name: future-gateway
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+server:
+  port: 8080
+zuul:
+  host:
+    connect-timeout-millis: 120000
+    socket-timeout-millis: 120000
+
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 120000
+
+---
+
+spring:
+  profiles: development
+
+zuul:
+  sensitiveHeaders:
+  routes:
+    authorization-server:
+      path: /authserv/**
+      url: http://localhost:8084
+    job-service:
+      path: /jobserv/**
+      url: http://localhost:8086
+    learn-service:
+      path: /learnserv/**
+      url: http://localhost:8087
+    payment-service:
+      path: /paymentserv/**
+      url: http://localhost:8088
+    bank-service:
+      path: /bankserv/**
+      url: http://localhost:8089
+    messaging-service:
+      path: /messageserv/**
+      url: http://localhost:8083
+    wallet-service:
+      path: /walletserv/**
+      url: http://localhost:9090
+
+---
+spring:
+  profiles: staging
+
+zuul:
+  sensitiveHeaders:
+  routes:
+    authorization-server:
+      path: /authserv/**
+      url: http://future-auth-server
+    job-service:
+      path: /jobserv/**
+      url: http://future-job-service
+    learn-service:
+      path: /learnserv/**
+      url: http://future-learn-service
+    payment-service:
+      path: /paymentserv/**
+      url: http://future-payment-service
+    bank-service:
+      path: /bankserv/**
+      url: http://future-bank-service
+    messaging-service:
+      path: /messageserv/**
+      url: http://future-messaging-service
+    wallet-service:
+      path: /walletserv/**
+      url: http://dv-shared-wallet
+
+---
+spring:
+  profiles: production
+
+zuul:
+  sensitiveHeaders:
+  routes:
+    authorization-server:
+      path: /authserv/**
+      url: http://future-auth-server
+    job-service:
+      path: /jobserv/**
+      url: http://future-job-service
+    learn-service:
+      path: /learnserv/**
+      url: http://future-learn-service
+    payment-service:
+      path: /paymentserv/**
+      url: http://future-payment-service
+    bank-service:
+      path: /bankserv/**
+      url: http://future-bank-service
+    messaging-service:
+      path: /messageserv/**
+      url: http://future-messaging-service
+    dv-shared-wallet:
+      path: /walletserv/**
+      url: http://dv-shared-wallet

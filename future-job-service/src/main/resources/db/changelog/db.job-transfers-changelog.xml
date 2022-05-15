@@ -1,0 +1,101 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet author="ACER NITRO 5 (generated)" id="1606389217099-3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="job_transfers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="job_transfers">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="job_transfersPK"/>
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime2"/>
+            <column name="credit_account_bank_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credit_account_branch_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credit_account_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credit_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credit_account_type" type="varchar(255)"/>
+            <column name="credit_narration" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="varchar(255)"/>
+            <column name="debit_account_branch_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debit_account_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debit_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debit_account_type" type="varchar(255)"/>
+            <column name="debit_narration" type="varchar(255)"/>
+            <column name="employer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="init_branch_code" type="varchar(255)"/>
+            <column name="job_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_reference" type="varchar(255)"/>
+            <column name="proposal_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621930789671-3">
+        <addColumn tableName="job_transfers">
+            <column name="executed_by" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621930789671-4">
+        <dropColumn columnName="employer_id" tableName="job_transfers"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621930789671-5">
+        <dropColumn columnName="job_id" tableName="job_transfers"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621930789671-6">
+        <dropColumn columnName="proposal_id" tableName="job_transfers"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621930789671-7">
+        <dropColumn columnName="user_id" tableName="job_transfers"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1621931170981-2">
+        <addColumn tableName="job_transfers">
+            <column name="executed_for" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-14">
+        <addColumn tableName="job_transfers">
+            <column name="initial_payment_reference" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1623170228849-2">
+        <addColumn tableName="job_transfers">
+            <column name="contract_reference" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1629459977782-6">
+        <addColumn tableName="job_transfers">
+            <column name="executed_by_username" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

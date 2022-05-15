@@ -1,0 +1,48 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: ${APP_ENV}
+  application:
+    name: future-messaging-service
+  
+server:
+  port: 8083
+  error:
+    include-message: always
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+---
+spring:
+  config:
+    activate:
+      on-profile: development
+    import: optional:configserver:http://localhost:8082
+  cloud:
+    config:
+      label: develop
+      profile: development
+---
+spring:
+  config:
+    activate:
+      on-profile: staging
+    import: optional:configserver:http://future-config-server
+  cloud:
+    config:
+      label: staging
+      profile: staging
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+    import: optional:configserver:http://future-config-server
+  cloud:
+    config:
+      label: master
+      profile: production

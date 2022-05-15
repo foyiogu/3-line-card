@@ -1,0 +1,122 @@
+pipeline {
+    agent any
+    
+    environment {
+    
+        DEPLOYMENT_ENVIRONMENT = 'NO_DEPLOYMENT'
+        ACR_LOGINSERVER = ''
+        APP_ENV = 'default'
+    }
+
+    tools {
+                   jdk "jdk-14"
+                }
+
+    stages {
+    
+    stage('Determine Environment') {
+    
+    steps {
+                echo 'Determine Environment'
+
+                script {
+
+                    // Determine whether this is a test or a staging / production build              
+                    switch (env.GIT_BRANCH) {
+                        case 'staging':
+                            GLOBAL_ENVIRONMENT = 'staging'
+                            ACR_LOGINSERVER = env.ACR_DEV_LOGINSERVER
+                            break
+                        case 'master':
+                            GLOBAL_ENVIRONMENT = 'production'
+                            ACR_LOGINSERVER = env.KULA_ACR_PROD_LOGINSERVER
+                            break
+                        default: 
+                            GLOBAL_ENVIRONMENT = 'NO_DEPLOYMENT'
+                            break
+                    }
+                }
+    }
+    }
+//       stage('Test') {
+//                 steps {
+//                         echo 'Testing..'
+//                         withMaven( maven: 'maven-3.6.3' ) {
+//                                 sh 'cd future-payment-service && mvn test'
+//                         }
+//
+//
+//                 }
+//             }
+
+        stage('Build') {
+
+            steps {
+                echo env.JAVA_HOME
+                echo 'Building..' + GLOBAL_ENVIRONMENT
+                 script {
+                    if (GLOBAL_ENVIRONMENT == 'NO_DEPLOYMENT') {
+                    
+                    	currentBuild.result = 'ABORTED'
+                    	error('This is not develop nor master branch and should not be build')
+                    } else {
+                        build(GLOBAL_ENVIRONMENT)
+                    }
+                }
+            }
+        }
+
+        
+        stage('Deploy') {
+            steps {
+           
+            script {
+                  if (GLOBAL_ENVIRONMENT == 'staging') {
+                    
+                    sh "kubectl config use-context aks-dv-cluster-dev"
+					sh "kubectl set image deployment/future-payment-service future-payment-service=${ACR_LOGINSERVER}/future-payment-service --namespace sidekiq"
+					sh "kubectl rollout restart deployment/future-payment-service --namespace sidekiq"
+					
+                  } else {
+                    sh "az aks get-credentials --resource-group Kula-RG --name UBNKula  --subscription cfda3d2d-75c3-4919-8042-363602a34c0a"
+                    sh "kubectl config use-context ubnkula"
+                    sh "kubectl set image deployment/future-payment-service future-payment-service=${KULA_ACR_PROD_LOGINSERVER}/future-payment-service --namespace kula"
+                    sh "kubectl rollout restart deployment/future-payment-service --namespace kula"
+                  }
+                }
+            
+           
+		    
+            }
+        }
+    }
+}
+
+def build(ENVIRONMENT) {
+  echo "Hello, ${ENVIRONMENT}."
+  if(ENVIRONMENT == 'staging'){
+    withCredentials([usernamePassword(credentialsId: 'acr-dev-credentials', usernameVariable: 'ACR_USERNAME', passwordVariable: 'ACR_PASSWORD')]) {
+    
+    	 withMaven( maven: 'maven-3.6.3' ) {
+    	 	withEnv(["APP_ENV=staging","ACR_SERVER=${ACR_LOGINSERVER}"]){
+				sh 'cd future-payment-service && mvn clean compile jib:build'
+			}
+
+    	 } 
+    
+    }
+  
+  }else{
+    withCredentials([usernamePassword(credentialsId: 'kula-acr-prod-credentials', usernameVariable: 'ACR_USERNAME', passwordVariable: 'ACR_PASSWORD')]) {
+     
+     	withMaven( maven: 'maven-3.6.3' ) {
+     		withEnv(["APP_ENV=production","ACR_SERVER=${KULA_ACR_PROD_LOGINSERVER}"]){
+     			sh 'cd future-payment-service && mvn clean compile jib:build'
+     		}
+
+    	 } 
+    }
+    
+  }
+  
+}

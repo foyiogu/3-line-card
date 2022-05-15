@@ -1,0 +1,64 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet author="aliyura (generated)" id="1622037021971-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="job_bulk_transfers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="job_bulk_transfers">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="job_bulk_transfersPK"/>
+            </column>
+            <column name="account_bank_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_branch_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cr_dr_flag" type="varchar(255)"/>
+            <column name="created_at" type="datetime2"/>
+            <column name="executed_by" type="varchar(255)"/>
+            <column name="executed_for" type="varchar(255)"/>
+            <column name="fee_or_charges" type="varchar(255)"/>
+            <column name="initial_payment_reference" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instrument_number" type="varchar(255)"/>
+            <column name="narration" type="varchar(255)"/>
+            <column name="payment_reference" type="varchar(255)"/>
+            <column name="transaction_id" type="varchar(255)"/>
+            <column name="value_date" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1623169071247-3">
+        <addColumn tableName="job_bulk_transfers">
+            <column name="contract_reference" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1623169071247-4">
+        <addColumn tableName="job_bulk_transfers">
+            <column name="remark" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1629459977782-5">
+        <addColumn tableName="job_bulk_transfers">
+            <column name="executed_by_username" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

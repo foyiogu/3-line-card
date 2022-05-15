@@ -1,0 +1,249 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet author="ACER NITRO 5 (generated)" id="1605865713516-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="job_contracts"/>
+            </not>
+        </preConditions>
+        <createTable tableName="job_contracts">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="job_contractsPK"/>
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cleared_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_method" type="varchar(255)"/>
+            <column name="created_at" type="datetime2"/>
+            <column name="currency" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_bank_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_email" type="varchar(255)"/>
+            <column name="customer_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_phone" type="varchar(255)"/>
+            <column name="end_date" type="datetime2"/>
+            <column name="job_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="datetime2"/>
+            <column name="merchant_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="merchant_bank_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="merchant_email" type="varchar(255)"/>
+            <column name="merchant_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="merchant_phone" type="varchar(255)"/>
+            <column name="peppfees" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="proposal_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="datetime2"/>
+            <column name="transfer_reference_id" type="varchar(255)"/>
+            <column name="user_email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608281004396-2">
+        <addColumn tableName="job_contracts">
+            <column name="description" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608281004396-3">
+        <addColumn tableName="job_contracts">
+            <column name="feedback" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608281004396-4">
+        <addColumn tableName="job_contracts">
+            <column name="rate" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608302038848-2">
+        <addColumn tableName="job_contracts">
+            <column name="is_settled" type="bit"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608302038848-3">
+        <addColumn tableName="job_contracts">
+            <column name="settlement" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ACER NITRO 5 (generated)" id="1608302038848-4">
+        <addColumn tableName="job_contracts">
+            <column name="status" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-28">
+        <dropColumn columnName="customer_account_number" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-29">
+        <dropColumn columnName="customer_bank_code" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-30">
+        <dropColumn columnName="customer_email" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-31">
+        <dropColumn columnName="customer_name" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-32">
+        <dropColumn columnName="customer_phone" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-33">
+        <dropColumn columnName="merchant_account_number" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-34">
+        <dropColumn columnName="merchant_bank_code" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-35">
+        <dropColumn columnName="merchant_email" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-36">
+        <dropColumn columnName="merchant_name" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-37">
+        <dropColumn columnName="merchant_phone" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-39">
+        <dropColumn columnName="transfer_reference_id" tableName="job_contracts"/>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-24">
+        <addColumn tableName="job_contracts">
+            <column name="settlement_payment_referencea" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-26">
+        <addColumn tableName="job_contracts">
+            <column name="settlement_payment_referenceb" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-22">
+        <addColumn tableName="job_contracts">
+            <column name="reversal_payment_referenceb" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-20">
+        <addColumn tableName="job_contracts">
+            <column name="reversal_payment_referencea" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-17">
+        <addColumn tableName="job_contracts">
+            <column name="initial_payment_referenceb" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-12">
+        <addColumn tableName="job_contracts">
+            <column name="freelancer_email_address" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-13">
+        <addColumn tableName="job_contracts">
+            <column name="freelancer_phone_number" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-15">
+        <addColumn tableName="job_contracts">
+            <column name="initial_payment_referencea" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-4">
+        <addColumn tableName="job_contracts">
+            <column name="contract_reference" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-6">
+        <addColumn tableName="job_contracts">
+            <column name="employer_account_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-7">
+        <addColumn tableName="job_contracts">
+            <column name="employer_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-8">
+        <addColumn tableName="job_contracts">
+            <column name="employer_email_address" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-9">
+        <addColumn tableName="job_contracts">
+            <column name="employer_phone_number" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-10">
+        <addColumn tableName="job_contracts">
+            <column name="freelancer_account_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021971-11">
+        <addColumn tableName="job_contracts">
+            <column name="freelancer_account_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021972-11">
+        <addColumn tableName="job_contracts">
+            <column name="vat" type="double"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1622037021973-11">
+        <addColumn tableName="job_contracts">
+            <column name="charges" type="double"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1640763945352-8">
+        <addColumn tableName="job_contracts">
+            <column name="escrow_charges" type="double precision"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1640763945352-9">
+        <addColumn tableName="job_contracts">
+            <column name="kula_charge_rate" type="double precision"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1640763945352-10">
+        <addColumn tableName="job_contracts">
+            <column name="vatcharge_rate" type="double precision"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="aliyura (generated)" id="1641380843151-9">
+        <addColumn tableName="job_contracts">
+            <column name="payment_method" type="int"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

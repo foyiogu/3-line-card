@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+<changeSet author="aliyura (generated)" id="1641380843151-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="wallet_transactions"/>
+            </not>
+        </preConditions>
+        <createTable tableName="wallet_transactions">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="wallet_transactionsPK"/>
+            </column>
+            <column name="account_branch" type="varchar(255)"/>
+            <column name="account_name" type="varchar(255)"/>
+            <column name="account_number" type="varchar(255)"/>
+            <column name="account_type" type="varchar(255)"/>
+            <column name="contract_reference" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+           <column name="currency_code" type="varchar(255)"/>
+            <column name="executed_by_username" type="varchar(255)"/>
+            <column name="narration" type="varchar(255)"/>
+            <column name="payment_reference" type="varchar(255)"/>
+            <column name="total_amount" type="numeric(19, 2)"/>
+            <column name="total_amount_plus_charges" type="numeric(19, 2)"/>
+            <column name="transaction_type" type="varchar(255)"/>
+            <column name="user_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wallet_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime2"/>
+            <column name="last_modified_date" type="datetime2"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
