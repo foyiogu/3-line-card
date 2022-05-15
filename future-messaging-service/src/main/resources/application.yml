@@ -23,18 +23,8 @@ spring:
     import: optional:configserver:http://localhost:8082
   cloud:
     config:
-      label: develop
+      label: development
       profile: development
----
-spring:
-  config:
-    activate:
-      on-profile: staging
-    import: optional:configserver:http://future-config-server
-  cloud:
-    config:
-      label: staging
-      profile: staging
 
 ---
 spring:

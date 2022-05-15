@@ -23,7 +23,7 @@ spring:
   cloud:
     config:
       uri: http://localhost:8082
-      label: develop
+      label: development
       
 ---
 spring:

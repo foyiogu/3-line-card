@@ -49,35 +49,8 @@ zuul:
       url: http://localhost:9090
 
 ---
-spring:
-  profiles: staging
 
-zuul:
-  sensitiveHeaders:
-  routes:
-    authorization-server:
-      path: /authserv/**
-      url: http://future-auth-server
-    job-service:
-      path: /jobserv/**
-      url: http://future-job-service
-    learn-service:
-      path: /learnserv/**
-      url: http://future-learn-service
-    payment-service:
-      path: /paymentserv/**
-      url: http://future-payment-service
-    bank-service:
-      path: /bankserv/**
-      url: http://future-bank-service
-    messaging-service:
-      path: /messageserv/**
-      url: http://future-messaging-service
-    wallet-service:
-      path: /walletserv/**
-      url: http://dv-shared-wallet
 
----
 spring:
   profiles: production
 
