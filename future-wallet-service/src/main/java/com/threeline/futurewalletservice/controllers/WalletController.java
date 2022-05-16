@@ -3,12 +3,10 @@ package com.threeline.futurewalletservice.controllers;
 import com.threeline.futurewalletservice.entities.Wallet;
 import com.threeline.futurewalletservice.pojos.APIResponse;
 import com.threeline.futurewalletservice.pojos.CreateWalletRequest;
-import com.threeline.futurewalletservice.pojos.Payment;
+import com.threeline.futurewalletservice.pojos.PaymentDTO;
 import com.threeline.futurewalletservice.services.WalletService;
 import com.threeline.futurewalletservice.util.App;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,7 +33,7 @@ public class WalletController {
 
 
     @PostMapping("/settle-wallet")
-    public APIResponse<Payment> settlePaymentToWallets(@RequestBody Payment payment){
+    public APIResponse<PaymentDTO> settlePaymentToWallets(@RequestBody PaymentDTO payment){
         app.print("Settling wallets");
         return walletService.fundWalletsAfterPayment(payment);
     }

@@ -7,7 +7,7 @@ import com.threeline.futurewalletservice.enums.Status;
 import com.threeline.futurewalletservice.enums.Role;
 import com.threeline.futurewalletservice.pojos.APIResponse;
 import com.threeline.futurewalletservice.pojos.CreateWalletRequest;
-import com.threeline.futurewalletservice.pojos.Payment;
+import com.threeline.futurewalletservice.pojos.PaymentDTO;
 import com.threeline.futurewalletservice.pojos.User;
 import com.threeline.futurewalletservice.repositories.WalletHistoryRepository;
 import com.threeline.futurewalletservice.repositories.WalletRepository;
@@ -75,7 +75,7 @@ public class WalletService {
     }
 
 
-    public APIResponse<Payment> fundWalletsAfterPayment(Payment payment){
+    public APIResponse<PaymentDTO> fundWalletsAfterPayment(PaymentDTO payment){
 
         Wallet clientInstitutionWallet = walletRepository
                 .findByRole(Role.CLIENT_INSTITUTION)
@@ -108,7 +108,7 @@ public class WalletService {
     }
 
 
-    private void saveWalletTransactionHistory(Wallet wallet, Payment payment, BigDecimal amount) {
+    private void saveWalletTransactionHistory(Wallet wallet, PaymentDTO payment, BigDecimal amount) {
 
         WalletHistory walletHistory = WalletHistory.builder()
                 .walletId(wallet.getId())

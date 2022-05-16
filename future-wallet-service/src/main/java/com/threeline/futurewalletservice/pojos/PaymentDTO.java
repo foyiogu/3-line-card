@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Payment {
+public class PaymentDTO {
 
     private Long id;
 
@@ -35,21 +33,16 @@ public class Payment {
 
     private String paymentReference;
 
-    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    @Enumerated(EnumType.STRING)
     private TransactionDirection transactionDirection;
 
     private Date paymentDate;
 
-    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Enumerated(EnumType.STRING)
     private SettlementStatus settlementStatus;
 
 }

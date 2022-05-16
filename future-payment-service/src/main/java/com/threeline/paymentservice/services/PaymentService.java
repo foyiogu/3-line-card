@@ -1,10 +1,7 @@
 package com.threeline.paymentservice.services;
 
 import com.threeline.paymentservice.entities.Payment;
-import com.threeline.paymentservice.enums.Currency;
-import com.threeline.paymentservice.enums.PaymentMethod;
-import com.threeline.paymentservice.enums.Status;
-import com.threeline.paymentservice.enums.TransactionDirection;
+import com.threeline.paymentservice.enums.*;
 import com.threeline.paymentservice.pojos.*;
 import com.threeline.paymentservice.repositories.PaymentRepository;
 import com.threeline.paymentservice.utils.App;
@@ -20,6 +17,7 @@ import java.util.Date;
 public class PaymentService implements Serializable {
 
     private final App app;
+    private final WalletService walletService;
     private final PaymentRepository paymentRepository;
 
     @Value("${spring.profiles.active}")
@@ -44,6 +42,7 @@ public class PaymentService implements Serializable {
                 .transactionDirection(TransactionDirection.CREDIT)
                 .paymentDate(new Date())
                 .status(Status.PENDING)
+                .settlementStatus(SettlementStatus.UNSETTLED)
                 .environment(environment)
                 .build();
 
@@ -62,7 +61,17 @@ public class PaymentService implements Serializable {
             return new APIResponse<>("Unable to make payment", false, null);
         }
 
-        return new APIResponse<>("Payment Successful", true, payment);
+        //Fund Wallet with Payment
+        APIResponse<PaymentDTO> paymentResponse = walletService.settlePaymentToWallets(payment);
+        if(paymentResponse.isSuccess()){
+            payment.setSettlementStatus(SettlementStatus.SETTLED);
+            paymentRepository.save(payment);
+            return new APIResponse<>("Payment Successful", true, payment);
+        }else{
+            //TODO: Do a reversal
+            payment.setStatus(Status.FAILED);
+            return new APIResponse<>("Payment Failed, Reversal Triggerred", false, payment);
+        }
     }
 
     private boolean processDirectBankDebitPayment(DirectBankDebitRequest directBankDebitRequest) {
