@@ -31,7 +31,6 @@ public class AppInitializer implements ApplicationRunner {
                     "Client", "Institution", null, "client@institution.com", "CLIENTPA@@dd33WORD",
                     "01000000002");
             registrationService.register(request, Role.CLIENT_INSTITUTION);
-
         }
 
 
