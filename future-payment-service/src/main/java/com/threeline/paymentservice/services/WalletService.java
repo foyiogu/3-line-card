@@ -28,12 +28,6 @@ public class WalletService implements Serializable {
     @Value("${walletBaseURL}")
     private String walletBaseURL;
 
-    @Value("${kula.walletUsername}")
-    private String username;
-
-    @Value("${kula.walletPassword}")
-    private String password;
-
     @PostConstruct
     public void init() {
 
@@ -47,12 +41,6 @@ public class WalletService implements Serializable {
                 .baseUrl(walletBaseURL)
                 .build();
         walletServiceInterface = retrofit.create(WalletServiceInterface.class);
-    }
-
-
-    private String computeBasicAuthorization(){
-        String details=username+":"+password;
-        return "Basic " +Base64.getEncoder().encodeToString(details.getBytes());
     }
 
 }

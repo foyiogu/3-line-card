@@ -36,11 +36,11 @@ public class App {
     public String makeUIID() {
         UUID referenceId = Generators.timeBasedGenerator().generate();
         return   referenceId.toString().replaceAll("-", "");
+
     }
 
-    public boolean validEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
+    public String generatePaymentReference() {
+        return   "PAY-"+makeUIID();
     }
 
 }
