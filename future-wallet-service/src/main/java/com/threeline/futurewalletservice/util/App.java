@@ -45,9 +45,9 @@ public class App {
     }
 
     public String generateAccountNumber() {
-        String accountNo = ("21" + System.currentTimeMillis()).substring(0, 10);
+        String accountNo = ("31" + System.currentTimeMillis());
         while(walletRepository.existsByAccountNumber(accountNo))
-            accountNo = ("21" + System.currentTimeMillis()).substring(0, 10);
+            accountNo = ("31" + System.currentTimeMillis());
         return accountNo;
     }
 
