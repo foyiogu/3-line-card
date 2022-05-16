@@ -1,12 +1,9 @@
 package com.threeline.futurewalletservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.threeline.futurewalletservice.enums.Currency;
 import com.threeline.futurewalletservice.enums.Status;
 import com.threeline.futurewalletservice.enums.TransactionDirection;
-import com.threeline.futurewalletservice.enums.WalletOwnerRole;
 import lombok.*;
-import org.springframework.transaction.TransactionStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;

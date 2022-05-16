@@ -1,4 +1,5 @@
 package com.threeline.futurewalletservice.pojos;
+import com.threeline.futurewalletservice.enums.Role;
 import lombok.*;
 
 @Data
@@ -6,20 +7,14 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class User {
-
     private Long id;
-    private String img;
-    private String fullName;
+    private String firstName;
+    private String lastName;
     private String uuid;
-    private String umid;
-    private String username;
     private String email;
     private String phoneNumber;
-    private String accountNumber;
-    private String accountName;
-    private String address;
-    private String country;
-    private String stateOfResidence;
-    private Boolean isEnabled;
-    private String createdAt;
+    private String walletId;
+    private String walletAccountNumber;
+    private int kycLevel;
+    private Role role;
 }

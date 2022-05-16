@@ -2,7 +2,7 @@ package com.threeline.futurewalletservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.threeline.futurewalletservice.enums.Currency;
-import com.threeline.futurewalletservice.enums.WalletOwnerRole;
+import com.threeline.futurewalletservice.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,7 +41,7 @@ public class Wallet implements Serializable {
 
     private String accountNumber;
 
-    private WalletOwnerRole walletOwnerRole;
+    private Role role;
 
     @JsonIgnore
     private boolean isBlocked;

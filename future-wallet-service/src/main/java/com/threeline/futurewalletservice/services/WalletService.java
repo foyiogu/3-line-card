@@ -4,7 +4,8 @@ import com.threeline.futurewalletservice.entities.Wallet;
 import com.threeline.futurewalletservice.entities.WalletHistory;
 import com.threeline.futurewalletservice.enums.Currency;
 import com.threeline.futurewalletservice.enums.Status;
-import com.threeline.futurewalletservice.enums.WalletOwnerRole;
+import com.threeline.futurewalletservice.enums.Role;
+import com.threeline.futurewalletservice.pojos.APIResponse;
 import com.threeline.futurewalletservice.pojos.CreateWalletRequest;
 import com.threeline.futurewalletservice.pojos.Payment;
 import com.threeline.futurewalletservice.pojos.User;
@@ -24,6 +25,7 @@ public class WalletService {
 
     private final WalletRepository walletRepository;
     private final WalletHistoryRepository walletHistoryRepository;
+    private final UserService userService;
     private final App app;
 
 
@@ -50,7 +52,7 @@ public class WalletService {
     }
 
 
-    public Wallet createContentCreatorWallet(CreateWalletRequest request) {
+    public APIResponse<Wallet> createContentCreatorWallet(CreateWalletRequest request) {
 
         if (!walletRepository.existsByUserId(request.getUserId())) {
             Wallet wallet = Wallet.builder()
@@ -62,25 +64,26 @@ public class WalletService {
                     .balance(BigDecimal.ZERO)
                     .currency(Currency.NGN)
                     .isBlocked(false)
-                    .walletOwnerRole(WalletOwnerRole.CONTENT_CREATOR)
+                    .role(Role.CONTENT_CREATOR)
                     .build();
 
-            return walletRepository.save(wallet);
+            return new APIResponse<>("wallet created", true, walletRepository.save(wallet));
+
         }else {
             throw new IllegalArgumentException("User already has a wallet");
         }
     }
 
 
-    public boolean fundWalletsAfterPayment(Payment payment){
+    public APIResponse<Payment> fundWalletsAfterPayment(Payment payment){
 
         Wallet clientInstitutionWallet = walletRepository
-                .findByWalletOwnerRole(WalletOwnerRole.CLIENT_INSTITUTION)
-                .orElse(createWalletForInstitution(WalletOwnerRole.CLIENT_INSTITUTION));
+                .findByWalletOwnerRole(Role.CLIENT_INSTITUTION)
+                .orElse(createWalletForInstitution(Role.CLIENT_INSTITUTION));
 
         Wallet contractingInstitutionWallet = walletRepository
-                .findByWalletOwnerRole(WalletOwnerRole.CONTRACTING_INSTITUTION)
-                .orElse(createWalletForInstitution(WalletOwnerRole.CONTRACTING_INSTITUTION));
+                .findByWalletOwnerRole(Role.CONTRACTING_INSTITUTION)
+                .orElse(createWalletForInstitution(Role.CONTRACTING_INSTITUTION));
 
         Wallet creatorWallet = walletRepository.findByUserId(payment.getProductCreatorId())
                 .orElse(createWalletForUser(payment.getProductCreatorId()));
@@ -100,7 +103,8 @@ public class WalletService {
         walletRepository.save(creatorWallet);
         saveWalletTransactionHistory(creatorWallet, payment, eightyFivePercent);
 
-        return true;
+        return new APIResponse<>("wallet settled", true, payment);
+
     }
 
 
@@ -123,15 +127,10 @@ public class WalletService {
 
     }
 
-    private Wallet createWalletForInstitution(WalletOwnerRole walletOwnerRole) {
-        User user = fetchUserByRole(walletOwnerRole);
+    private Wallet createWalletForInstitution(Role role) {
+        User user = userService.fetchUserByRole(role);
         return createWalletForUser(user);
 
-    }
-
-    private User fetchUserByRole(WalletOwnerRole walletOwnerRole) {
-        //TODO Fetch user by role from authserver
-        return null;
     }
 
 }
