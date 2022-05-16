@@ -84,6 +84,8 @@ public class RegistrationService {
 
         createWalletForUser(user);
 
+        //TODO Send email to content creator
+
         return ResponseEntity.ok().body(
                 new APIResponse(messageSource.getMessage("success.registration.message", null, LocaleContextHolder.getLocale()),true, user.getId()));
 
