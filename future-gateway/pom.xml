@@ -12,7 +12,7 @@
 	<artifactId>future-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>future-gateway</name>
-	<description>Zuul Gateway service for Project Future</description>
+	<description>Zuul Gateway service for 3Line Project</description>
 
 	<properties>
 		<java.version>11</java.version>

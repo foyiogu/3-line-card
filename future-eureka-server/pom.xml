@@ -12,7 +12,7 @@
 	<artifactId>future-eureka-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>future-eureka-server</name>
-	<description>Eureka Server for Project Future</description>
+	<description>Eureka Server for 3Line Project</description>
 
 	<properties>
 		<java.version>11</java.version>

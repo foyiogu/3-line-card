@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configAutenticacao = new CorsConfiguration();
         configAutenticacao.setAllowCredentials(true);
         configAutenticacao.addAllowedHeader("*");
-        configAutenticacao.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://sidekiq-frontend.azurewebsites.net","https://kula.work"));
+        configAutenticacao.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://dev.3lineng.com","https://3lineng.com"));
         configAutenticacao.setAllowedMethods(Arrays.asList("GET","PUT","POST","UPDATE","DELETE","OPTIONS"));
         configAutenticacao.setMaxAge(3600L);
         source.registerCorsConfiguration("/**", configAutenticacao); // Global for all paths

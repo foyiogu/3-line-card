@@ -12,7 +12,7 @@
 	<artifactId>future-authorization-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>future-authorization-server</name>
-	<description>Authorization server for Project Future</description>
+	<description>Authorization server for 3Line Project</description>
 
 	<properties>
 		<java.version>11</java.version>

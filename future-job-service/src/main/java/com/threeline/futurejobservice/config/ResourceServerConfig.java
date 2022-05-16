@@ -32,7 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/api/v1/ping", "/api/v1/test", "/api/v1/notification/test",  "/api/v1/jobs", "/api/v1/jobs/get_by_type/**", "/api/v1/jobs/get_by_type_and_category/**").permitAll().and()
+				.antMatchers( "/test/**").permitAll().and()
 				.requestMatchers().antMatchers("/api/**").and().authorizeRequests().antMatchers("/api/**").authenticated();
 	}
 
@@ -78,7 +78,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
 		corsConfiguration.addAllowedHeader("*");
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://sidekiq-frontend.azurewebsites.net","https://kula.work"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://dev.3lineng.com","https://3lineng.com"));
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "UPDATE", "DELETE"));
 		corsConfiguration.setMaxAge(3600L);
 		source.registerCorsConfiguration("/**", corsConfiguration); // Global for all paths

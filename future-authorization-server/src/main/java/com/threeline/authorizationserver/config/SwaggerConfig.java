@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .version("0.0.1")
                   .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("Okeme Christian", "https://www.linkedin.com/in/djbabs/", "okemedjbabs@gmail.com"))
+                .contact(new Contact("Festus Audu", "https://www.linkedin.com/firsthus", "audufirsthus@gmail.com"))
                 .build();
     }
 

@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api")
+@RequestMapping(path = "/test")
 public class AppController {
 
     private final SecurityService securityService;
 
-    @PostMapping("/v1/email/test/forgot_password/{email}")
-    public ResponseEntity<APIResponse<?>> testForgotPassword(@PathVariable String email) {
+    @PostMapping("/email")
+    public ResponseEntity<APIResponse<?>> testForgotPassword(@RequestParam("email") String email) {
         securityService.initiateForgotPassword(email);
         return ResponseEntity.ok().body(new APIResponse<>("Request Successful",true,null));
+    }
+
+    @PostMapping("/ping")
+    public ResponseEntity<APIResponse<?>> ping(@RequestParam("message") String message) {
+        return ResponseEntity.ok().body(new APIResponse<>("Responding to you message:" + message,true,null));
     }
 }
