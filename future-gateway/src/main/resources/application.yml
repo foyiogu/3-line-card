@@ -34,7 +34,7 @@ zuul:
       url: http://localhost:8088
     wallet-service:
       path: /walletserv/**
-      url: http://localhost:9090
+      url: http://localhost:8086
 
 ---
 
@@ -48,21 +48,9 @@ zuul:
     authorization-server:
       path: /authserv/**
       url: http://future-auth-server
-    job-service:
-      path: /jobserv/**
-      url: http://future-job-service
-    learn-service:
-      path: /learnserv/**
-      url: http://future-learn-service
+    wallet-service:
+      path: /walletserv/**
+      url: http://future-wallet-service
     payment-service:
       path: /paymentserv/**
       url: http://future-payment-service
-    bank-service:
-      path: /bankserv/**
-      url: http://future-bank-service
-    messaging-service:
-      path: /messageserv/**
-      url: http://future-messaging-service
-    dv-shared-wallet:
-      path: /walletserv/**
-      url: http://dv-shared-wallet

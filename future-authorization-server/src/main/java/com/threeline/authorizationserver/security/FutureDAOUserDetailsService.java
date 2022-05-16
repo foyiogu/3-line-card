@@ -18,7 +18,6 @@ public class FutureDAOUserDetailsService implements UserDetailsService {
 
 	private final UserRepository userRepository;
 	private final MessageSource messageSource;
-	private final App app;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

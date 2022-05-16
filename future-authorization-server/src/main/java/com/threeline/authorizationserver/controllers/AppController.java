@@ -23,4 +23,5 @@ public class AppController {
     public ResponseEntity<APIResponse<?>> ping(@RequestParam("message") String message) {
         return ResponseEntity.ok().body(new APIResponse<>("Responding to you message:" + message,true,null));
     }
+
 }
