@@ -78,11 +78,11 @@ public class WalletService {
     public APIResponse<Payment> fundWalletsAfterPayment(Payment payment){
 
         Wallet clientInstitutionWallet = walletRepository
-                .findByWalletOwnerRole(Role.CLIENT_INSTITUTION)
+                .findByRole(Role.CLIENT_INSTITUTION)
                 .orElse(createWalletForInstitution(Role.CLIENT_INSTITUTION));
 
         Wallet contractingInstitutionWallet = walletRepository
-                .findByWalletOwnerRole(Role.CONTRACTING_INSTITUTION)
+                .findByRole(Role.CONTRACTING_INSTITUTION)
                 .orElse(createWalletForInstitution(Role.CONTRACTING_INSTITUTION));
 
         Wallet creatorWallet = walletRepository.findByUserId(payment.getProductCreatorId())
