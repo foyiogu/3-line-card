@@ -1,8 +1,8 @@
 spring:
   main:
     allow-bean-definition-overriding: true
-  profiles:
-    active: ${APP_ENV}
+#  profiles:
+#    active: ${APP_ENV}
   application:
     name: wallet-service
   
@@ -15,6 +15,7 @@ management:
     web:
       exposure:
         include: refresh
+
 
 ---
 spring:
@@ -31,5 +32,5 @@ spring:
   profiles: production
   cloud:
     config:
-      uri: http://future-config-server
-      label: master
+      uri: https://three-line-config-servers.herokuapp.com/
+      label: production
