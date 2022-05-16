@@ -1,7 +1,5 @@
 package com.threeline.authorizationserver;
 
-//import net.devh.boot.grpc.server.security.authentication.BasicGrpcAuthenticationReader;
-//import net.devh.boot.grpc.server.security.authentication.GrpcAuthenticationReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +15,4 @@ public class AuthorizationServerApplication {
 	}
 
 
-//	@Bean
-//	public GrpcAuthenticationReader grpcAuthenticationReader() {
-//		return new BasicGrpcAuthenticationReader();
-//	}
 }

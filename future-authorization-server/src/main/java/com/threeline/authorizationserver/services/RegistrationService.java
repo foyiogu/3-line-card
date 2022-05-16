@@ -1,10 +1,12 @@
 package com.threeline.authorizationserver.services;
 
 import com.threeline.authorizationserver.controllers.RegistrationController;
+import com.threeline.authorizationserver.enums.Role;
 import com.threeline.authorizationserver.pojos.APIResponse;
 import com.threeline.authorizationserver.entities.User;
 import com.threeline.authorizationserver.pojos.ErrorResponse;
 import com.threeline.authorizationserver.pojos.RegistrationRequest;
+import com.threeline.authorizationserver.pojos.Wallet;
 import com.threeline.authorizationserver.security.PasswordValidator;
 import com.threeline.authorizationserver.utils.App;
 import lombok.RequiredArgsConstructor;
@@ -21,31 +23,31 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegistrationService {
 
-    private final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
-
     private final MessageSource messageSource;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final WalletService walletService;
     private final App app;
 
     private PasswordValidator passwordValidator  = PasswordValidator.
             buildValidator(false, true, true, 6, 40);
 
-    public ResponseEntity register(RegistrationRequest request){
+    public ResponseEntity register(RegistrationRequest request, Role role){
 
-        app.print("####REGISTER WITH KULA FORM");
-        if (userService.existsByEmail(request.getEmail()) || userService.existsByUsername(request.getUsername()) || userService.existsByPhoneNumber(request.getPhoneNumber())) {
+        app.print("####REGISTERING USER####");
+        if (userService.existsByEmail(request.getEmail()) || userService.existsByPhoneNumber(request.getPhoneNumber())) {
 
             app.print("@@@@@@User already exist");
             User existingUser = null;
                     existingUser = userService.findByEmail(request.getEmail()).orElse(
-                    userService.findByUsername(request.getUsername()).orElse(
                             userService.findByPhoneNumber(request.getPhoneNumber()).orElse(null)
-                    )
             );
 
             app.print("User found: ");
             ErrorResponse errorResponse = new ErrorResponse();
+
+            assert existingUser != null;
+
             if(existingUser.getIsEnabled()) {
                 errorResponse.setCode("00");
                 errorResponse.setRemark(messageSource.getMessage("account.active", null, LocaleContextHolder.getLocale()));
@@ -63,21 +65,41 @@ public class RegistrationService {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
                     new APIResponse(messageSource.getMessage("password.validation.error", null, LocaleContextHolder.getLocale()),false,null));
 
+        //    private String walletId;
+        //    private String walletAccountNumber;
+        //    private String gender;
+
+
         // generate uuid for user
         String generatedUuid = app.makeUIID();
         User user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
-                .kycLevel(0)
-                .phoneNumber(request.getPhoneNumber()).dialingCode(request.getDialingCode())
-                .email(request.getEmail()).username(request.getEmail()).dialingCode(request.getDialingCode()).phoneNumber(request.getPhoneNumber()).isEnabled(Boolean.FALSE)
-                .uuid(generatedUuid).password(passwordEncoder.encode(request.getPassword())).username(request.getUsername())
-                .authProvider(request.getAuthProvider()).build();
+                .kycLevel(1).role(role)
+                .phoneNumber(request.getPhoneNumber())
+                .email(request.getEmail()).phoneNumber(
+                        app.validNumber(request.getPhoneNumber()) ? request.getPhoneNumber() : null).isEnabled(Boolean.TRUE)
+                .uuid(generatedUuid).password(passwordEncoder.encode(request.getPassword())).gender(request.getGender()).build();
 
         user = userService.save(user);
         app.print("Saved user");
 
-        logger.info("new email registration");
+        createWalletForUser(user);
+
+        //TODO Send email to content creator
+
         return ResponseEntity.ok().body(
                 new APIResponse(messageSource.getMessage("success.registration.message", null, LocaleContextHolder.getLocale()),true, user.getId()));
+
+    }
+
+    private void createWalletForUser(User user) {
+        app.print("Creating wallet for user");
+        APIResponse<Wallet> walletResponse = walletService.createWallet(user);
+
+        if(walletResponse.isSuccess()){
+            user.setWalletId(walletResponse.getPayload().getId());
+            user.setWalletAccountNumber(walletResponse.getPayload().getAccountNumber());
+            userService.save(user);
+        }
 
     }
 

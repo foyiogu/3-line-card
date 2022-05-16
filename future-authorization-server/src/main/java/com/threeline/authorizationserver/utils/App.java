@@ -37,64 +37,18 @@ public class App {
         return   referenceId.toString().replaceAll("-", "");
 
     }
-    public boolean validImage(String fileName)
-    {
-        String regex = "(.*/)*.+\\.(png|jpg|gif|bmp|jpeg|PNG|JPG|GIF|BMP|JPEG)$";
-        Pattern p = Pattern.compile(regex);
-        if (fileName == null) {
-            return false;
-        }
-        Matcher m = p.matcher(fileName);
-        return m.matches();
-    }
-
-    public boolean validEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
-    }
-
-    public boolean validBvn(String bvn) {
-        Pattern pattern = Pattern.compile("^\\d{11}$");
-        Matcher matcher = pattern.matcher(bvn);
-        return matcher.matches();
-    }
 
     public boolean validNumber(String number) {
         if (number.startsWith("+234"))
            number= number.replace("+234", "0");
         Pattern pattern = Pattern.compile("^\\d{11}$");
         Matcher matcher = pattern.matcher(number);
-        return matcher.matches();
+//        return matcher.matches();
+        return true; //Making all numbers valid for demonstration purposes
     }
     public ObjectMapper getMapper(){
         return new ObjectMapper();
     }
 
-    public Long generateOTP(){
-        Random rnd = new Random();
-        String number = String.valueOf(rnd.nextInt(999999));
-        if(number.length()<6){
-            if(number.length()==5)
-                number=number+"9";
-            if(number.length()==4)
-                number=number+"99";
-            if(number.length()==3)
-                number=number+"999";
-        }
-        return  Long.valueOf(number);
-    }
 
-    public String toPhoneNumber(String phoneNumber) {
-        String userPhone = phoneNumber;
-        if (phoneNumber.startsWith("+234")) {
-            userPhone = phoneNumber.substring(1);
-        } else {
-            if (phoneNumber.startsWith("0")) {
-                userPhone = "234" + phoneNumber.substring(1);
-            } else {
-                userPhone = "234" + phoneNumber;
-            }
-        }
-        return userPhone;
-    }
 }

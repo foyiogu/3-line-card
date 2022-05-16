@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api")
+@RequestMapping(path = "/proxy")
 public class ProxyController {
 
     private final UserService userService;
     private final App app;
 
-    @GetMapping("/v1/proxy/user/get_by_id/{userId}")
+    @GetMapping("/proxy/user/get_by_id/{userId}")
     public ApiResponseProxy<User> getUserById(@PathVariable String userId) {
         app.print("ProxyController.getUserById()");
 

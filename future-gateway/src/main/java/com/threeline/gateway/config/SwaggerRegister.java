@@ -18,9 +18,9 @@ public class SwaggerRegister implements SwaggerResourcesProvider {
 	@Override
 	public List<SwaggerResource> get() {
 		List<SwaggerResource> resources = new ArrayList<>();
-		resources.add(swaggerResource("authorization-server", "/authserv/v2/api-docs", "0.0.1"));
-		resources.add(swaggerResource("payment-service", "/paymentserv/v2/api-docs", "0.0.1"));
-		resources.add(swaggerResource("wallet-service", "/walletserv/v2/api-docs", "0.0.1"));
+		resources.add(swaggerResource("authorization-server", "/authserv/api/v1/v2/api-docs", "0.0.1"));
+		resources.add(swaggerResource("payment-service", "/paymentserv/api/v1/v2/api-docs", "0.0.1"));
+		resources.add(swaggerResource("wallet-service", "/walletserv/api/v1/v2/api-docs", "0.0.1"));
 		return resources;
 	}
 

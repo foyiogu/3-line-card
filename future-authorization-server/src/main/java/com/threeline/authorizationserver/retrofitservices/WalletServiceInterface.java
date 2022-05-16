@@ -1,22 +1,19 @@
 package com.threeline.authorizationserver.retrofitservices;
 
-import com.threeline.authorizationserver.pojos.WalletAuthResponse;
+import com.threeline.authorizationserver.pojos.APIResponse;
+import com.threeline.authorizationserver.pojos.CreateWalletRequest;
+import com.threeline.authorizationserver.pojos.UserDTO;
+import com.threeline.authorizationserver.pojos.Wallet;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.util.Map;
-
 public interface WalletServiceInterface {
 
-    @POST("oauth/token")
-    @FormUrlEncoded
+    @POST("wallet/create")
     @Headers({
             "Accept: application/json"
     })
-    Call<WalletAuthResponse> getWalletServiceToken(@Field("grant_type") String grantType,
-                                                   @Field("username") String username,
-                                                   @Field("password") String password,
-                                                   @Header("Authorization") String authorization);
+    Call<APIResponse<Wallet>> createWallet(@Body UserDTO userDTO);
 
 
 }

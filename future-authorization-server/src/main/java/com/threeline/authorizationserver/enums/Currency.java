@@ -1,6 +1,7 @@
+
 package com.threeline.authorizationserver.enums;
 
-public enum AuthProvider {
-    EMAIL,
-    GOOGLE
+public enum Currency {
+    NGN,
+    
 }

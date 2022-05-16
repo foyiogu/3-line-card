@@ -122,16 +122,17 @@
 
 		<!--GRPC-->
 
-		<dependency>
-			<groupId>net.devh</groupId>
-			<artifactId>grpc-client-spring-boot-starter</artifactId>
-			<version>2.10.1.RELEASE</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>net.devh</groupId>-->
+<!--			<artifactId>grpc-client-spring-boot-starter</artifactId>-->
+<!--			<version>2.10.1.RELEASE</version>-->
+<!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>net.devh</groupId>-->
 <!--			<artifactId>grpc-server-spring-boot-starter</artifactId>-->
 <!--			<version>2.13.1.RELEASE</version>-->
 <!--		</dependency>-->
+
 		<!--Caching -->
 		<dependency>
 			<groupId>com.google.code.simple-spring-memcached</groupId>
@@ -171,8 +172,16 @@
             <version>3.1.4</version>
             <scope>compile</scope>
         </dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>

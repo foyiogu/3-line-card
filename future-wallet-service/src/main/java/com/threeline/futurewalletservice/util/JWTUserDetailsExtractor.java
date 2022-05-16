@@ -1,8 +1,9 @@
 package com.threeline.futurewalletservice.util;
 
-import com.threeline.futurewalletservice.pojos.JwtUserDetail;
+import com.threeline.futurewalletservice.pojos.*;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+
 import java.util.Map;
 
 public class JWTUserDetailsExtractor {

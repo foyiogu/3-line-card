@@ -16,6 +16,7 @@ public class AppController {
 
     @PostMapping("/ping")
     public ResponseEntity<?> ping() {
+        app.print("Service is up and running");
         return ResponseEntity.ok().body("pong");
     }
 
