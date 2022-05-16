@@ -8,11 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.unionbankng.future</groupId>
+	<groupId>com.threeline</groupId>
 	<artifactId>future-payment-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>future-payment-service</name>
-	<description>Payment service for project future</description>
+	<description>Payment service for 3Line Project</description>
 
 	<properties>
 		<java.version>11</java.version>
@@ -37,6 +37,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-bootstrap</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -166,11 +170,5 @@
 		</plugins>
 	</build>
 
-	<repositories>
-			<repository>
-				<id>maven-group</id>
-				<url>http://40.69.37.139:8081/nexus/content/groups/maven-group/</url>
-			</repository>
-	</repositories>
 
 </project>

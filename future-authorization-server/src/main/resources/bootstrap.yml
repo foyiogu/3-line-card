@@ -23,15 +23,7 @@ spring:
   cloud:
     config:
       uri: http://localhost:8082
-      label: develop
-      
----
-spring:
-  profiles: staging
-  cloud:
-    config:
-      uri: http://future-config-server
-      label: staging
+      label: development
 
 
 ---

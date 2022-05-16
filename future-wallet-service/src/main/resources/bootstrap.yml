@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: ${APP_ENV}
+  application:
+    name: wallet-service
+  
+server:
+  port: 8086
+  error:
+    include-message: always
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      uri: http://localhost:8082
+      label: development
+
+
+---
+
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://future-config-server
+      label: master
