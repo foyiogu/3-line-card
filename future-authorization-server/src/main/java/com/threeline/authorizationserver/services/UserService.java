@@ -1,6 +1,7 @@
 package com.threeline.authorizationserver.services;
 
 import com.threeline.authorizationserver.entities.User;
+import com.threeline.authorizationserver.enums.Role;
 import com.threeline.authorizationserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -61,5 +62,9 @@ public class UserService {
     public User login(String email, String password) {
         //Todo: implement login
         return null;
+    }
+
+    public Optional<User> findByRole(Role role) {
+        return userRepository.findByRole(role);
     }
 }

@@ -1,13 +1,16 @@
 package com.threeline.authorizationserver.services;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.threeline.authorizationserver.entities.User;
 import com.threeline.authorizationserver.pojos.APIResponse;
 import com.threeline.authorizationserver.pojos.CreateWalletRequest;
+import com.threeline.authorizationserver.pojos.UserDTO;
 import com.threeline.authorizationserver.pojos.Wallet;
 import com.threeline.authorizationserver.retrofitservices.WalletServiceInterface;
 import com.threeline.authorizationserver.utils.App;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Response;
@@ -50,13 +53,10 @@ public class WalletService implements Serializable {
     public APIResponse<Wallet> createWallet(User user){
         try {
             app.print("Creating Wallet....");
-            CreateWalletRequest createWalletRequest = new CreateWalletRequest();
-            createWalletRequest.setUserId(user.getId());
-            createWalletRequest.setUserUuid(user.getUuid());
-            createWalletRequest.setEmail(user.getEmail());
-            createWalletRequest.setAccountName(user.getWalletAccountNumber());
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(user, userDTO);
 
-                Response<APIResponse<Wallet>> response = walletServiceInterface.createWallet(createWalletRequest).execute();
+                Response<APIResponse<Wallet>> response = walletServiceInterface.createWallet(userDTO).execute();
                 app.print("Response:");
                 app.print(response);
                 app.print(response.body());

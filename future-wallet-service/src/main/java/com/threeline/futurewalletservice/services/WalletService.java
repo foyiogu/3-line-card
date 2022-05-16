@@ -8,7 +8,7 @@ import com.threeline.futurewalletservice.enums.Role;
 import com.threeline.futurewalletservice.pojos.APIResponse;
 import com.threeline.futurewalletservice.pojos.CreateWalletRequest;
 import com.threeline.futurewalletservice.pojos.PaymentDTO;
-import com.threeline.futurewalletservice.pojos.User;
+import com.threeline.futurewalletservice.pojos.UserDTO;
 import com.threeline.futurewalletservice.repositories.WalletHistoryRepository;
 import com.threeline.futurewalletservice.repositories.WalletRepository;
 import com.threeline.futurewalletservice.util.App;
@@ -45,10 +45,23 @@ public class WalletService {
         return null;
     }
 
-    private Wallet createWalletForUser(User user) {
-        //TODO: Fetch user details from auth server
-        //TODO: Create wallet for user
-        return null;
+    public Wallet createWalletForUser(UserDTO userDTO) {
+        if (!walletRepository.existsByUserId(userDTO.getId())) {
+            Wallet wallet = Wallet.builder()
+                    .userId(userDTO.getId())
+                    .userUuid(userDTO.getUuid())
+                    .accountName(userDTO.toString())
+                    .accountNumber(app.generateAccountNumber())
+                    .userEmail(userDTO.getEmail())
+                    .balance(BigDecimal.ZERO)
+                    .currency(Currency.NGN)
+                    .isBlocked(false)
+                    .role(userDTO.getRole())
+                    .build();
+            return walletRepository.save(wallet);
+        }
+
+        return walletRepository.findByUserId(userDTO.getId()).get();
     }
 
 
@@ -128,8 +141,8 @@ public class WalletService {
     }
 
     private Wallet createWalletForInstitution(Role role) {
-        User user = userService.fetchUserByRole(role);
-        return createWalletForUser(user);
+        UserDTO userDTO = userService.fetchUserByRole(role);
+        return createWalletForUser(userDTO);
 
     }
 

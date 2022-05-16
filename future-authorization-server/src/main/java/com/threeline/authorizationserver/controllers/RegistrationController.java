@@ -1,5 +1,6 @@
 package com.threeline.authorizationserver.controllers;
 
+import com.threeline.authorizationserver.enums.Role;
 import com.threeline.authorizationserver.pojos.APIResponse;
 import com.threeline.authorizationserver.pojos.RegistrationRequest;
 import com.threeline.authorizationserver.services.RegistrationService;
@@ -22,7 +23,7 @@ public class RegistrationController {
     @PostMapping("/register")
     public ResponseEntity<APIResponse> register(@Valid @RequestBody RegistrationRequest request){
         app.print("Registration Process begin");
-        return registrationService.register(request);
+        return registrationService.register(request, Role.CONTENT_CREATOR);
     }
 
     @GetMapping("/foo")

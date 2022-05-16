@@ -32,7 +32,7 @@ public class RegistrationService {
     private PasswordValidator passwordValidator  = PasswordValidator.
             buildValidator(false, true, true, 6, 40);
 
-    public ResponseEntity register(RegistrationRequest request){
+    public ResponseEntity register(RegistrationRequest request, Role role){
 
         app.print("####REGISTERING USER####");
         if (userService.existsByEmail(request.getEmail()) || userService.existsByPhoneNumber(request.getPhoneNumber())) {
@@ -73,7 +73,7 @@ public class RegistrationService {
         // generate uuid for user
         String generatedUuid = app.makeUIID();
         User user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
-                .kycLevel(1).role(Role.CONTENT_CREATOR)
+                .kycLevel(1).role(role)
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail()).phoneNumber(
                         app.validNumber(request.getPhoneNumber()) ? request.getPhoneNumber() : null).isEnabled(Boolean.TRUE)

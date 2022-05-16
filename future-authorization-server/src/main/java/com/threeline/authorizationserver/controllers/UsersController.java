@@ -1,5 +1,6 @@
 package com.threeline.authorizationserver.controllers;
 
+import com.threeline.authorizationserver.enums.Role;
 import com.threeline.authorizationserver.pojos.APIResponse;
 import com.threeline.authorizationserver.services.UserService;
 import com.threeline.authorizationserver.entities.User;
@@ -39,6 +40,14 @@ public class UsersController {
         User user = userService.findById(userId).orElseThrow(  ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         app.print("User found");
         return ResponseEntity.ok().body(new APIResponse<>("Request successful",true,user));
+    }
+
+
+    @GetMapping("/role")
+    public ResponseEntity<APIResponse<User>> getUserByRole(@RequestParam Role role) {
+        User user = userService.findByRole(role).orElseThrow(  ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        app.print("User found");
+        return ResponseEntity.ok().body(new APIResponse<>("Request successful",true, user));
     }
 
 

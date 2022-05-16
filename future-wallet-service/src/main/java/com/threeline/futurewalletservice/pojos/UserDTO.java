@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class UserDTO {
     private Long id;
     private String firstName;
     private String lastName;
@@ -17,4 +17,12 @@ public class User {
     private String walletAccountNumber;
     private int kycLevel;
     private Role role;
+
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
+
+

@@ -60,6 +60,7 @@ public class User implements Serializable {
 
     @JsonIgnore
     @Column
+    @Enumerated(EnumType.STRING)
     private Role role = Role.CONTENT_CREATOR;
 
     @JsonIgnore
@@ -112,4 +113,5 @@ public class User implements Serializable {
     public String toString() {
         return this.firstName+" "+this.lastName;
     }
+
 }

@@ -2,8 +2,8 @@ package com.threeline.futurewalletservice.controllers;
 
 import com.threeline.futurewalletservice.entities.Wallet;
 import com.threeline.futurewalletservice.pojos.APIResponse;
-import com.threeline.futurewalletservice.pojos.CreateWalletRequest;
 import com.threeline.futurewalletservice.pojos.PaymentDTO;
+import com.threeline.futurewalletservice.pojos.UserDTO;
 import com.threeline.futurewalletservice.services.WalletService;
 import com.threeline.futurewalletservice.util.App;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +19,9 @@ public class WalletController {
 
 
     @PostMapping("/create")
-    public APIResponse<Wallet> createWallet(@RequestBody CreateWalletRequest request){
+    public APIResponse<Wallet> createWallet(@RequestBody UserDTO userDTO){
         app.print("...Creating wallet");
-        return walletService.createContentCreatorWallet(request);
+        return new APIResponse<>("wallet created", true, walletService.createWalletForUser(userDTO));
     }
 
 
