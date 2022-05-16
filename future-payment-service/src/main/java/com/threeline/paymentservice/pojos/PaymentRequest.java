@@ -2,6 +2,7 @@ package com.threeline.paymentservice.pojos;
 import com.threeline.paymentservice.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PaymentRequest {
 
     private String customerName;

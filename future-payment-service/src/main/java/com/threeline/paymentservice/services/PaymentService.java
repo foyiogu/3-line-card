@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Service
@@ -26,6 +27,10 @@ public class PaymentService implements Serializable {
     public APIResponse<Payment> makePayment(PaymentRequest paymentRequest) {
 
         app.print("Making payment");
+
+        if((paymentRequest.getAmountPaid().compareTo(BigDecimal.valueOf(100))<0)){
+            throw new IllegalArgumentException("Amount should be greater than N100");
+        }
 
         boolean paymentSuccessful = false;
 
