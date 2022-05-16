@@ -47,10 +47,10 @@ zuul:
   routes:
     authorization-server:
       path: /authserv/**
-      url: http://future-auth-server
+      url: https://three-line-auth-servers.herokuapp.com/
     wallet-service:
       path: /walletserv/**
-      url: http://future-wallet-service
+      url: https://three-line-wallet-service.herokuapp.com/
     payment-service:
       path: /paymentserv/**
-      url: http://future-payment-service
+      url: https://three-line-payment-services.herokuapp.com/

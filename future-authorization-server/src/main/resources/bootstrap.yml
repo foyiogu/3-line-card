@@ -1,8 +1,8 @@
 spring:
   main:
     allow-bean-definition-overriding: true
-  profiles:
-    active: ${APP_ENV}
+#  profiles:
+#    active: ${APP_ENV}
   application:
     name: authorization-server
   
@@ -10,7 +10,6 @@ server:
   port: 8084
   error:
     include-message: always
-
 management:
   endpoints:
     web:
@@ -32,5 +31,5 @@ spring:
   profiles: production
   cloud:
     config:
-      uri: http://future-config-server
-      label: master
+      uri: https://three-line-config-servers.herokuapp.com/
+      label: production
