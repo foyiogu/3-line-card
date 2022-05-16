@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.uuid.Generators;
 import com.google.gson.Gson;
+import com.threeline.futurewalletservice.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,9 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class App {
+
     private final Logger logger = LoggerFactory.getLogger(App.class);
+    private final WalletRepository walletRepository;
 
     public void log(String message) {
         logger.info(message);
@@ -30,81 +33,27 @@ public class App {
             ex.printStackTrace();
         }
     }
-    public String toString(Object obj){
-        try {
-            return new Gson().toJson(obj);
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-            return  null;
-        }
-    }
-
-    public void printX(Object obj){
-        try {
-            logger.info(new Gson().toJson(obj));
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-    public Object copy(Object obj){
-        Gson gson= new Gson();
-        String tmp = gson.toJson(obj);
-        return gson.fromJson(tmp,obj.getClass());
-    }
 
     public String makeUIID() {
         UUID referenceId = Generators.timeBasedGenerator().generate();
         return   referenceId.toString().replaceAll("-", "");
 
     }
-    public boolean validImage(String fileName)
-    {
-        String regex = "(.*/)*.+\\.(png|jpg|gif|bmp|jpeg|PNG|JPG|GIF|BMP|JPEG)$";
-        Pattern p = Pattern.compile(regex);
-        if (fileName == null) {
-            return false;
-        }
-        Matcher m = p.matcher(fileName);
-        return m.matches();
+
+    public String generateTransactionReference() {
+        return   "TRN"+makeUIID();
     }
 
-    public boolean validEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
-    }
-
-    public boolean validNumber(String number) {
-        if (number.startsWith("+234"))
-           number= number.replace("+234", "0");
-        Pattern pattern = Pattern.compile("^\\d{11}$");
-        Matcher matcher = pattern.matcher(number);
-        return matcher.matches();
+    public String generateAccountNumber() {
+        String accountNo = ("21" + System.currentTimeMillis()).substring(0, 10);
+        while(walletRepository.existsByAccountNumber(accountNo))
+            accountNo = ("21" + System.currentTimeMillis()).substring(0, 10);
+        return accountNo;
     }
 
     public ObjectMapper getMapper(){
-        ObjectMapper mapper= new ObjectMapper();
-        return mapper;
+        return new ObjectMapper();
     }
-    public String toPhoneNumber(String phoneNumber) {
-        String userPhone = phoneNumber;
-        if (phoneNumber.startsWith("234") || phoneNumber.startsWith("+234")) {
-            if (phoneNumber.length() == 13) {
-                String str_getMOBILE = phoneNumber.substring(3);
-                userPhone = "0" + str_getMOBILE;
-            } else if (phoneNumber.length() == 14) {
-                String str_getMOBILE = phoneNumber.substring(4);
-                userPhone = "0" + str_getMOBILE;
-            }
-        }
-        return userPhone;
-    }
-    public String getClientDevice() {
-        return "Google Chrome";
-    }
-    public String getClientMACAddress(){
-        return "172.17.255.255";
-    }
+
+
 }

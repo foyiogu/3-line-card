@@ -1,26 +1,33 @@
 package com.threeline.authorizationserver.pojos;
 
-import com.threeline.authorizationserver.enums.AuthProvider;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 public class RegistrationRequest {
 
+    @NotBlank
     private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    @NotNull
-    @Size(min = 6)
-    private String username;
-    private String dialingCode;
-    private String phoneNumber;
-    private String thirdPartyToken;
-    @NotNull
-    private AuthProvider authProvider;
 
+    @NotBlank
+    private String lastName;
+
+    private String gender;
+
+    @NotNull
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(min = 6, max = 40)
+    private String password;
+
+    @NotBlank
+    @Size(min=6, max = 15) //For demonstration purpose
+    private String phoneNumber;
 
 }

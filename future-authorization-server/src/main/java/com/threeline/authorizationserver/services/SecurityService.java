@@ -48,7 +48,7 @@ public class SecurityService {
     public ResponseEntity<?> initiateForgotPassword(String identifier){
 
         app.print("#########Initiating forgot password");
-        Optional<User> emailOwner = userService.findByEmailOrUsername(identifier,identifier);
+        Optional<User> emailOwner = userService.findByEmail(identifier);
 
         if(emailOwner.isEmpty()){
             return ResponseEntity.ok().body(new APIResponse<>("This email is not registered", false, null));
@@ -110,8 +110,6 @@ public class SecurityService {
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new APIResponse("Password reset successful",true,null));
-
-
     }
 
     public ResponseEntity<APIResponse> changePassword(ChangePasswordRequest request){

@@ -20,14 +20,20 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api")
+@RequestMapping(path = "/users")
 public class UsersController {
 
     private final UserService userService;
     private final App app;
 
+    @PostMapping("/login")
+    public ResponseEntity<APIResponse> login(@RequestParam String email, @RequestParam String password) {
+        User user = userService.login(email, password);
+        return ResponseEntity.ok().body(new APIResponse<>("Request successful",true,user));
+    }
 
-    @GetMapping("/v1/users/{userId}")
+
+    @GetMapping("/{userId}")
     public ResponseEntity<APIResponse<User>> getUserById(@PathVariable Long userId) {
 
         User user = userService.findById(userId).orElseThrow(  ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -36,14 +42,14 @@ public class UsersController {
     }
 
 
-    @GetMapping("/v1/users/search")
+    @GetMapping("/search")
     public ResponseEntity<APIResponse> getUsersBySearch(@RequestParam String  q) {
         List<User> user = userService.findUsersBySearch(q).orElseThrow(  ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         return ResponseEntity.ok().body(new APIResponse<>("Request successful",true,user));
     }
 
 
-    @GetMapping("/v1/users")
+    @GetMapping("")
     public ResponseEntity<APIResponse> getUsers(@RequestParam int  page,  @RequestParam int size) {
         Page<User> userPage = userService.findUsers(PageRequest.of(page,size));
         if(userPage.isEmpty())
@@ -53,7 +59,7 @@ public class UsersController {
     }
 
 
-    @GetMapping("/v1/users/get_details_with_token")
+    @GetMapping("/get_details_with_token")
     public ResponseEntity<APIResponse<UserByTokenResponse>> getUserByToken(@ApiIgnore OAuth2Authentication authentication) {
         User user =  userService.findByUuid(authentication.getName())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));

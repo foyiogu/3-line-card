@@ -9,19 +9,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api")
+@RequestMapping("/pin")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/v1/pin/set")
+    @PostMapping("/set")
     public ResponseEntity<APIResponse> createNewPin(OAuth2Authentication authentication, @RequestParam String pin){
         return ResponseEntity.ok().body(authenticationService.createPin(authentication, pin));
     }
 
 
-
-    @PostMapping("/v1/pin/verify")
+    @PostMapping("/verify")
     public ResponseEntity<APIResponse> verifyPin(OAuth2Authentication authentication, @RequestParam String pin){
         return ResponseEntity.ok().body(authenticationService.verifyPin(authentication, pin));
     }

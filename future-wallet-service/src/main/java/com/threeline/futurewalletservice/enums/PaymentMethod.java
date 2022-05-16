@@ -2,6 +2,7 @@
 package com.threeline.futurewalletservice.enums;
 
 public enum PaymentMethod {
-    WALLET,
-    BANK
+    CARD,
+    BANK_TRANSFER,
+    DIRECT_BANK_DEBIT
 }
