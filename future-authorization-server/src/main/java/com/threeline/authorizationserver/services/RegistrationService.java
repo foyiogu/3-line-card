@@ -6,6 +6,7 @@ import com.threeline.authorizationserver.pojos.APIResponse;
 import com.threeline.authorizationserver.entities.User;
 import com.threeline.authorizationserver.pojos.ErrorResponse;
 import com.threeline.authorizationserver.pojos.RegistrationRequest;
+import com.threeline.authorizationserver.pojos.Wallet;
 import com.threeline.authorizationserver.security.PasswordValidator;
 import com.threeline.authorizationserver.utils.App;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class RegistrationService {
     private final MessageSource messageSource;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final WalletService walletService;
     private final App app;
 
     private PasswordValidator passwordValidator  = PasswordValidator.
@@ -89,6 +91,13 @@ public class RegistrationService {
 
     private void createWalletForUser(User user) {
         app.print("Creating wallet for user");
+        APIResponse<Wallet> walletResponse = walletService.createWallet(user);
+
+        if(walletResponse.isSuccess()){
+            user.setWalletId(walletResponse.getPayload().getId());
+            user.setWalletAccountNumber(walletResponse.getPayload().getAccountNumber());
+            userService.save(user);
+        }
 
     }
 

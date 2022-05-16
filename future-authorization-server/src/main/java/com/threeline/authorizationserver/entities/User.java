@@ -40,7 +40,7 @@ public class User implements Serializable {
     @JsonIgnore
     private String password;
 
-    private String walletId;
+    private Long walletId;
 
     @JsonIgnore
     private String pin;

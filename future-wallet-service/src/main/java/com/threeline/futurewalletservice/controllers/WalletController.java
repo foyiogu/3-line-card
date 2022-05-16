@@ -21,23 +21,23 @@ public class WalletController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Wallet>> createWallet(@RequestBody CreateWalletRequest request){
+    public APIResponse<Wallet> createWallet(@RequestBody CreateWalletRequest request){
         app.print("...Creating wallet");
-        return new ResponseEntity<>(walletService.createContentCreatorWallet(request), HttpStatus.CREATED);
+        return walletService.createContentCreatorWallet(request);
     }
 
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getUserWallet(@PathVariable Long userId){
+    public APIResponse<Wallet> getUserWallet(@PathVariable Long userId){
         app.print("Fetching wallet for user");
-        return new ResponseEntity<>(walletService.findWalletByUserId(userId), HttpStatus.OK);
+        return new APIResponse<>("success", true, walletService.findWalletByUserId(userId));
     }
 
 
     @PostMapping("/settle-wallet")
-    public ResponseEntity<?> settlePaymentToWallets(@RequestBody Payment payment){
+    public APIResponse<Payment> settlePaymentToWallets(@RequestBody Payment payment){
         app.print("Settling wallets");
-        return new ResponseEntity<>(walletService.fundWalletsAfterPayment(payment), HttpStatus.OK);
+        return walletService.fundWalletsAfterPayment(payment);
     }
 
 
