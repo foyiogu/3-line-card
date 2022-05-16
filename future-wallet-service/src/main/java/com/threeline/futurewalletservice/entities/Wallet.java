@@ -41,6 +41,7 @@ public class Wallet implements Serializable {
 
     private String accountNumber;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @JsonIgnore
