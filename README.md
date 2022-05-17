@@ -64,10 +64,7 @@ The order of starting the services are below:
 ___
 ### Architecture
 
-```html
-
-___
-
+![Architecture of infrastructure used](Blank-diagram.png)
 ___
 I have used the JWT for security but for the ease of use and to test the functionality of the API, 
 I have intentionally made all endpoints open (not secured). 
