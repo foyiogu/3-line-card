@@ -65,6 +65,7 @@ ___
 ### Architecture
 
 <img alt="Architecture of infrastructure used" src="Blank-diagram.png"/>
+
 ___
 I have used the JWT for security but for the ease of use and to test the functionality of the API, 
 I have intentionally made all endpoints open (not secured). 
