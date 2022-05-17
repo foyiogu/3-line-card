@@ -62,6 +62,13 @@ The order of starting the services are below:
 - future-authorization-server
 
 ___
+### Architecture
+
+```html
+
+___
+
+___
 I have used the JWT for security but for the ease of use and to test the functionality of the API, 
 I have intentionally made all endpoints open (not secured). 
 
